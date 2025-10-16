@@ -1,0 +1,158 @@
+<project name="[Assignment name]" default="run" basedir=".">
+
+    <property name="lib.dir" value="${basedir}/lib"/>
+    <property name="lib.runtime.dir" value="${lib.dir}/runtime"/>
+    <property name="lib.test.dir" value="${lib.dir}/test"/>
+    <property name="lib.compile.dir" value="${lib.dir}/compile"/>
+    <property name="lib.checkstyle.dir" value="${lib.dir}/checkstyle"/>
+    <property name="src.dir" value="${basedir}/src"/>
+    <property name="test.dir" value="${basedir}/test"/>
+    <property name="output.dir" value="${basedir}/build"/>
+    <property name="output.test.dir" value="${output.dir}/test"/>
+    <property name="output.reports.dir" value="${output.dir}/test-reports"/>
+    <property name="output.production.dir" value="${output.dir}/production"/>
+    <property name="checkstyle.config.dir" value="${basedir}/checkstyle"/>
+    <property name="checkstyle.config.biuoop" value="${checkstyle.config.dir}/biuoop.xml"/>
+    <property name="checkstyle.config.biuoop.test" value="${checkstyle.config.dir}/biuoop-test.xml"/>
+
+    <path id="lib.runtime.classpath">
+        <fileset dir="${lib.runtime.dir}" includes="**/*.jar"/>
+    </path>
+
+    <path id="lib.test.classpath">
+        <path refid="lib.runtime.classpath"/>
+        <fileset dir="${lib.test.dir}" includes="**/*.jar"/>
+    </path>
+
+    <path id="lib.compile.classpath">
+        <path refid="lib.test.classpath"/>
+        <fileset dir="${lib.compile.dir}" includes="**/*.jar"/>
+    </path>
+
+    <path id="lib.checkstyle.classpath">
+        <fileset dir="${lib.checkstyle.dir}" includes="**/*.jar"/>
+    </path>
+
+    <path id="output.production.classpath">
+        <pathelement location="${output.production.dir}"/>
+    </path>
+
+    <path id="output.test.classpath">
+        <path refid="output.production.classpath"/>
+        <pathelement location="${output.test.dir}"/>
+    </path>
+
+    <path id="checkstyle.src.path">
+        <fileset dir="${src.dir}" includes="**/*.java"/>
+    </path>
+
+    <path id="checkstyle.test.path">
+        <fileset dir="${test.dir}" includes="**/*.java"/>
+    </path>
+
+    <target name="init"
+            description="Initialize build">
+        <mkdir dir="${output.dir}"/>
+    </target>
+
+    <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties">
+        <classpath>
+            <path refid="lib.checkstyle.classpath"/>
+        </classpath>
+    </taskdef>
+
+    <target name="check"
+            description="Run checkstyle on source code">
+        <checkstyle config="${checkstyle.config.biuoop}"
+                    failureProperty="checkstyle.failure"
+                    failOnViolation="true">
+            <path refid="checkstyle.src.path"/>
+            <formatter type="plain" usefile="false"/>
+        </checkstyle>
+    </target>
+
+    <target name="check-test"
+            description="Run checkstyle on tests source code">
+        <checkstyle config="${checkstyle.config.biuoop.test}"
+                    failureProperty="checkstyle.failure"
+                    failOnViolation="true">
+            <path refid="checkstyle.test.path"/>
+            <formatter type="plain" usefile="false"/>
+        </checkstyle>
+    </target>
+
+    <target name="check-all"
+            depends="check, check-test"
+            description="Run all checks"/>
+
+    <target name="compile"
+            depends="check,init"
+            description="Check and compile the source code">
+        <mkdir dir="${output.production.dir}"/>
+        <javac sourcepath=""
+               srcdir="${src.dir}"
+               destdir="${output.production.dir}"
+               includeAntRuntime="false">
+            <classpath>
+                <path refid="lib.compile.classpath"/>
+            </classpath>
+            <include name="**/*.java"/>
+        </javac>
+    </target>
+
+    <target name="compile-test"
+            depends="check-test,compile"
+            description="Check and compile the tests source code">
+        <mkdir dir="${output.test.dir}"/>
+        <javac sourcepath=""
+               srcdir="${test.dir}"
+               destdir="${output.test.dir}"
+               includeAntRuntime="false">
+            <classpath>
+                <path refid="lib.test.classpath"/>
+                <path refid="output.production.classpath"/>
+            </classpath>
+            <include name="**/*.java"/>
+        </javac>
+    </target>
+
+    <target name="run"
+            depends="compile"
+            description="Run the entry point MainTemplate">
+        <java classname="MainTemplate" fork="true">
+            <classpath>
+                <path refid="lib.runtime.classpath"/>
+                <path refid="output.production.classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="test"
+            depends="compile-test"
+            description="Execute all tests and generate test reports">
+        <mkdir dir="${output.reports.dir}"/>
+        <junitlauncher>
+            <classpath>
+                <path refid="lib.test.classpath"/>
+                <path refid="output.test.classpath"/>
+            </classpath>
+            <testclasses outputdir="${output.reports.dir}">
+                <fileset dir="${output.test.dir}" includes="**/*.class"/>
+                <listener type="legacy-plain" sendsysout="true"/>
+                <listener type="legacy-xml" sendsysout="true" sendsyserr="true"/>
+            </testclasses>
+        </junitlauncher>
+        <junitreport todir="${output.reports.dir}">
+            <fileset dir="${output.reports.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="noframes" todir="${output.reports.dir}/html"/>
+        </junitreport>
+    </target>
+
+    <target name="clean" description="Delete build artifacts">
+        <delete dir="${output.dir}"/>
+        <delete dir="${output.reports.dir}"/>
+    </target>
+
+</project>

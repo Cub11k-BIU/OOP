@@ -12,5 +12,6 @@ class MainTemplateTest {
 
     @Test
     void testMain() {
+        assertTrue(true, "Dummy test");
     }
 }
