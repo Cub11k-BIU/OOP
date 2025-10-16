@@ -1,5 +1,6 @@
-# [AssignmentName]
+# Assignment 1 - Points and Segments
 
-## [Assignment Wiki page](../../wiki/AssignmentPage)
+## [Assignment Wiki page](../../wiki/Assignment-1)
 
-[AssignmentBrief]
+In this assignment you will implement Point and LineSegment  classes,
+as well as interaction between them.
