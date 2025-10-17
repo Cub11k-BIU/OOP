@@ -31,29 +31,43 @@
     <property name="output.test.dir" value="${output.dir}/test"/>
     <property name="output.reports.dir" value="${output.dir}/test-reports"/>
     <property name="output.production.dir" value="${output.dir}/production"/>
+    <property name="output.dist.dir" value="${output.dir}/dist"/>
     <property name="checkstyle.config.dir" value="${basedir}/checkstyle"/>
     <property name="checkstyle.config.biuoop" value="${checkstyle.config.dir}/biuoop.xml"/>
     <property name="checkstyle.config.biuoop.test" value="${checkstyle.config.dir}/biuoop-test.xml"/>
+
+    <!-- JAR distribution properties -->
+    <property name="dist.jar" value="${output.dist.dir}/${ant.project.name}-all.jar"/>
+
+    <!-- ===================================================================== -->
+    <!-- Fileset definitions                                                   -->
+    <!-- ===================================================================== -->
+    <fileset id="lib.runtime.fileset" dir="${lib.runtime.dir}" includes="**/*.jar"/>
+    <fileset id="lib.test.fileset" dir="${lib.test.dir}" includes="**/*.jar"/>
+    <fileset id="lib.compile.fileset" dir="${lib.compile.dir}" includes="**/*.jar"/>
+    <fileset id="lib.checkstyle.fileset" dir="${lib.checkstyle.dir}" includes="**/*.jar"/>
+    <fileset id="src.fileset" dir="${src.dir}" includes="**/*.java"/>
+    <fileset id="test.fileset" dir="${test.dir}" includes="**/*.java"/>
 
     <!-- ===================================================================== -->
     <!-- Classpath definitions                                                 -->
     <!-- ===================================================================== -->
     <path id="lib.runtime.classpath">
-        <fileset dir="${lib.runtime.dir}" includes="**/*.jar"/>
+        <fileset refid="lib.runtime.fileset"/>
     </path>
 
     <path id="lib.test.classpath">
         <path refid="lib.runtime.classpath"/>
-        <fileset dir="${lib.test.dir}" includes="**/*.jar"/>
+        <fileset refid="lib.test.fileset"/>
     </path>
 
     <path id="lib.compile.classpath">
         <path refid="lib.test.classpath"/>
-        <fileset dir="${lib.compile.dir}" includes="**/*.jar"/>
+        <fileset refid="lib.compile.fileset"/>
     </path>
 
     <path id="lib.checkstyle.classpath">
-        <fileset dir="${lib.checkstyle.dir}" includes="**/*.jar"/>
+        <fileset refid="lib.checkstyle.fileset"/>
     </path>
 
     <path id="output.production.classpath">
@@ -66,11 +80,11 @@
     </path>
 
     <path id="checkstyle.src.path">
-        <fileset dir="${src.dir}" includes="**/*.java"/>
+        <fileset refid="src.fileset"/>
     </path>
 
     <path id="checkstyle.test.path">
-        <fileset dir="${test.dir}" includes="**/*.java"/>
+        <fileset refid="test.fileset"/>
     </path>
 
     <!-- ===================================================================== -->
@@ -151,11 +165,16 @@
     <!-- ===================================================================== -->
 
     <target name="dist" depends="compile" description="Create a distributable JAR file">
-        <jar destfile="${output.dir}/${ant.project.name}.jar" basedir="${output.production.dir}">
+        <jar destfile="${dist.jar}" basedir="${output.production.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main.class}"/>
             </manifest>
+            <zipgroupfileset refid="lib.runtime.fileset"/>
         </jar>
+    </target>
+
+    <target name="run-jar" depends="dist" description="Run the application from the packaged JAR">
+        <java jar="${dist.jar}" fork="true"/>
     </target>
 
     <target name="run" depends="compile" description="Run the application from compiled classes">
@@ -165,10 +184,6 @@
                 <path refid="output.production.classpath"/>
             </classpath>
         </java>
-    </target>
-
-    <target name="run-jar" depends="dist" description="Run the application from the packaged JAR">
-        <java jar="${output.dir}/${ant.project.name}.jar" fork="true"/>
     </target>
 
     <!-- ===================================================================== -->
