@@ -1,5 +1,25 @@
-<project name="[Assignment name]" default="run" basedir=".">
+<project name="[AssignmentName]" default="run" basedir=".">
 
+    <!-- ===================================================================== -->
+    <!-- Project properties                                                    -->
+    <!-- ===================================================================== -->
+    <description>
+        This build file compiles, tests, and packages the application.
+        Key targets:
+        - clean: Deletes all generated files.
+        - check-all: Runs checkstyle on all source code.
+        - compile: Compiles the main application source.
+        - test: Runs JUnit tests.
+        - dist: Creates a single, executable JAR file.
+        - run: Runs the application from the compiled classes.
+        - run-jar: Runs the application from the packaged JAR.
+    </description>
+
+    <!-- Global build properties -->
+    <property name="java.version" value="25" description="Java version for source and target compilation"/>
+    <property name="main.class" value="MainTemplate" description="The main class to run"/>
+
+    <!-- Directory properties -->
     <property name="lib.dir" value="${basedir}/lib"/>
     <property name="lib.runtime.dir" value="${lib.dir}/runtime"/>
     <property name="lib.test.dir" value="${lib.dir}/test"/>
@@ -15,6 +35,9 @@
     <property name="checkstyle.config.biuoop" value="${checkstyle.config.dir}/biuoop.xml"/>
     <property name="checkstyle.config.biuoop.test" value="${checkstyle.config.dir}/biuoop-test.xml"/>
 
+    <!-- ===================================================================== -->
+    <!-- Classpath definitions                                                 -->
+    <!-- ===================================================================== -->
     <path id="lib.runtime.classpath">
         <fileset dir="${lib.runtime.dir}" includes="**/*.jar"/>
     </path>
@@ -50,10 +73,21 @@
         <fileset dir="${test.dir}" includes="**/*.java"/>
     </path>
 
-    <target name="init"
-            description="Initialize build">
+    <!-- ===================================================================== -->
+    <!-- Core Build Targets                                                    -->
+    <!-- ===================================================================== -->
+
+    <target name="init" description="Initialize build directory">
         <mkdir dir="${output.dir}"/>
     </target>
+
+    <target name="clean" description="Delete all build artifacts">
+        <delete dir="${output.dir}"/>
+    </target>
+
+    <!-- ===================================================================== -->
+    <!-- Checkstyle Targets                                                    -->
+    <!-- ===================================================================== -->
 
     <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties">
         <classpath>
@@ -61,65 +95,71 @@
         </classpath>
     </taskdef>
 
-    <target name="check"
-            description="Run checkstyle on source code">
-        <checkstyle config="${checkstyle.config.biuoop}"
-                    failureProperty="checkstyle.failure"
-                    failOnViolation="true">
+    <target name="check" description="Run checkstyle on source code">
+        <checkstyle config="${checkstyle.config.biuoop}" failureProperty="checkstyle.failure" failOnViolation="true">
             <path refid="checkstyle.src.path"/>
             <formatter type="plain" usefile="false"/>
         </checkstyle>
     </target>
 
-    <target name="check-test"
-            description="Run checkstyle on tests source code">
-        <checkstyle config="${checkstyle.config.biuoop.test}"
-                    failureProperty="checkstyle.failure"
-                    failOnViolation="true">
+    <target name="check-test" description="Run checkstyle on test source code">
+        <checkstyle config="${checkstyle.config.biuoop.test}" failureProperty="checkstyle.failure" failOnViolation="true">
             <path refid="checkstyle.test.path"/>
             <formatter type="plain" usefile="false"/>
         </checkstyle>
     </target>
 
-    <target name="check-all"
-            depends="check, check-test"
-            description="Run all checks"/>
+    <target name="check-all" depends="check, check-test" description="Run all checkstyle checks"/>
 
-    <target name="compile"
-            depends="check,init"
-            description="Check and compile the source code">
+    <!-- ===================================================================== -->
+    <!-- Compilation Targets                                                   -->
+    <!-- ===================================================================== -->
+
+    <target name="compile" depends="check, init" description="Compile the application source code">
         <mkdir dir="${output.production.dir}"/>
-        <javac sourcepath=""
-               srcdir="${src.dir}"
+        <javac srcdir="${src.dir}"
                destdir="${output.production.dir}"
-               includeAntRuntime="false">
+               includeAntRuntime="false"
+               source="${java.version}"
+               target="${java.version}"
+               debug="on"
+               fork="true">
             <classpath>
                 <path refid="lib.compile.classpath"/>
             </classpath>
-            <include name="**/*.java"/>
         </javac>
     </target>
 
-    <target name="compile-test"
-            depends="check-test,compile"
-            description="Check and compile the tests source code">
+    <target name="compile-test" depends="check-test, compile" description="Compile the test source code">
         <mkdir dir="${output.test.dir}"/>
-        <javac sourcepath=""
-               srcdir="${test.dir}"
+        <javac srcdir="${test.dir}"
                destdir="${output.test.dir}"
-               includeAntRuntime="false">
+               includeAntRuntime="false"
+               source="${java.version}"
+               target="${java.version}"
+               debug="on"
+               fork="true">
             <classpath>
                 <path refid="lib.test.classpath"/>
                 <path refid="output.production.classpath"/>
             </classpath>
-            <include name="**/*.java"/>
         </javac>
     </target>
 
-    <target name="run"
-            depends="compile"
-            description="Run the entry point MainTemplate">
-        <java classname="MainTemplate" fork="true">
+    <!-- ===================================================================== -->
+    <!-- Packaging and Execution Targets                                       -->
+    <!-- ===================================================================== -->
+
+    <target name="dist" depends="compile" description="Create a distributable JAR file">
+        <jar destfile="${output.dir}/${ant.project.name}.jar" basedir="${output.production.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="compile" description="Run the application from compiled classes">
+        <java classname="${main.class}" fork="true">
             <classpath>
                 <path refid="lib.runtime.classpath"/>
                 <path refid="output.production.classpath"/>
@@ -127,9 +167,15 @@
         </java>
     </target>
 
-    <target name="test"
-            depends="compile-test"
-            description="Execute all tests and generate test reports">
+    <target name="run-jar" depends="dist" description="Run the application from the packaged JAR">
+        <java jar="${output.dir}/${ant.project.name}.jar" fork="true"/>
+    </target>
+
+    <!-- ===================================================================== -->
+    <!-- Testing Target                                                        -->
+    <!-- ===================================================================== -->
+
+    <target name="test" depends="compile-test" description="Execute all tests and generate reports">
         <mkdir dir="${output.reports.dir}"/>
         <junitlauncher>
             <classpath>
@@ -148,11 +194,6 @@
             </fileset>
             <report format="noframes" todir="${output.reports.dir}/html"/>
         </junitreport>
-    </target>
-
-    <target name="clean" description="Delete build artifacts">
-        <delete dir="${output.dir}"/>
-        <delete dir="${output.reports.dir}"/>
     </target>
 
 </project>
