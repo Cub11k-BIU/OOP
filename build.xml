@@ -1,4 +1,4 @@
-<project name="[AssignmentName]" default="run" basedir=".">
+<project name="Assignment1" default="run" basedir=".">
 
     <!-- ===================================================================== -->
     <!-- Project properties                                                    -->
