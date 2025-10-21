@@ -35,6 +35,7 @@
     <property name="checkstyle.config.dir" value="${basedir}/checkstyle"/>
     <property name="checkstyle.config.biuoop" value="${checkstyle.config.dir}/biuoop.xml"/>
     <property name="checkstyle.config.biuoop.test" value="${checkstyle.config.dir}/biuoop-test.xml"/>
+    <property name="junitreport.style.dir" value="${basedir}/ant"/>
 
     <!-- JAR distribution properties -->
     <property name="dist.jar" value="${output.dist.dir}/${ant.project.name}-all.jar"/>
@@ -207,7 +208,9 @@
             <fileset dir="${output.reports.dir}">
                 <include name="TEST-*.xml"/>
             </fileset>
-            <report format="noframes" todir="${output.reports.dir}/html"/>
+            <report format="noframes" styledir="${junitreport.style.dir}" todir="${output.reports.dir}/html">
+                <param name="PROJECT_NAME" expression="${ant.project.name}"/>
+            </report>
         </junitreport>
     </target>
 
