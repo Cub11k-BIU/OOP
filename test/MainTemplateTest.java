@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * MainTemplateTest.
  *
- * @author Konstantin Ostashenko
- * © 2025
+ * @author [Author Name]
+ * © [YYYY]
  */
 class MainTemplateTest {
 

@@ -1,8 +1,8 @@
 /**
  * MainTemplate.
  *
- * @author Konstantin Ostashenko
- * © 2025
+ * @author [Author Name]
+ * © [YYYY]
  */
 public class MainTemplate {
     /**
