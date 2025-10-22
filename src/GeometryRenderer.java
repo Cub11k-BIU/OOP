@@ -6,8 +6,8 @@ import java.awt.Color;
 /**
  * GeometryRenderer.
  *
- * @author [Author Name]
- * © [YYYY]
+ * @author Konstantin Ostashenko, 345548929
+ * © 2025
  */
 public class GeometryRenderer {
     private static final int DEFAULT_POINT_RADIUS = 4;

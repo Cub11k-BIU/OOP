@@ -7,8 +7,8 @@ import java.util.List;
  * @param intersections point-segment intersections
  * @param singles       single points with no intersections
  * @param lineSegments  line segments
- * @author [Author Name]
- * © [YYYY]
+ * @author Konstantin Ostashenko
+ * © 2025
  */
 public record GeometryRecord(List<Point> middles, List<Point> intersections, List<Point> singles,
                              List<LineSegment> lineSegments) {

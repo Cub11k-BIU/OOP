@@ -5,8 +5,8 @@ import java.util.Random;
 /**
  * GeometryGenerator.
  *
- * @author [Author Name]
- * © [YYYY]
+ * @author Konstantin Ostashenko
+ * © 2025
  */
 public class GeometryGenerator {
     private final int pointsNumber;

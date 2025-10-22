@@ -1,10 +1,12 @@
 /**
  * Point.
  *
- * @author [Author Name]
- * © [YYYY]
+ * @author Konstantin Ostashenko
+ * © 2025
  */
 public class Point {
+    private double x;
+    private double y;
 
     /**
      * Construct a Point with coordinates `(x, y)`.
@@ -13,6 +15,8 @@ public class Point {
      * @param y coordinate y
      */
     public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -21,6 +25,8 @@ public class Point {
      * @param p point to copy
      */
     public Point(Point p) {
+        this.x = p.getX();
+        this.y = p.getY();
     }
 
     /**
@@ -29,6 +35,7 @@ public class Point {
      * @return coordinate x
      */
     public double getX() {
+        return this.x;
     }
 
     /**
@@ -37,6 +44,7 @@ public class Point {
      * @return coordinate y
      */
     public double getY() {
+        return this.y;
     }
 
     /**
@@ -45,6 +53,7 @@ public class Point {
      * @param x coordinate x
      */
     public void setX(double x) {
+        this.x = x;
     }
 
     /**
@@ -53,6 +62,7 @@ public class Point {
      * @param y coordinate y
      */
     public void setY(double y) {
+        this.y = y;
     }
 
     /**
@@ -62,6 +72,7 @@ public class Point {
      * @return distance
      */
     public double distance(Point other) {
+        return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
     }
 
     /**
@@ -71,5 +82,16 @@ public class Point {
      * @return `true` if points have the same coordinates, `false` otherwise
      */
     public boolean isEqual(Point other) {
+        return DoubleComparator.isEqual(this.x, other.x) && DoubleComparator.isEqual(this.y, other.y);
+    }
+
+    /**
+     * Determine whether `this` belongs to line segment `l`.
+     *
+     * @param l line to check belonging to
+     * @return `true` if `this` belongs to line segment `l`, `false` otherwise
+     */
+    public boolean belongsTo(LineSegment l) {
+        return PointSegmentIntersection.intersects(this, l);
     }
 }
