@@ -16,14 +16,6 @@ public class LineSegment {
     }
 
     /**
-     * Construct a LineSegment from another line segment.
-     *
-     * @param l line segment to copy
-     */
-    public LineSegment(LineSegment l) {
-    }
-
-    /**
      * Getter for first point.
      *
      * @return point p1
