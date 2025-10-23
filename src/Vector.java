@@ -15,39 +15,6 @@ public class Vector {
     }
 
     /**
-     * Construct Vector from Point.
-     *
-     * @param p point
-     */
-    public Vector(Point p) {
-    }
-
-    /**
-     * Construct Vector from two points.
-     *
-     * @param start start point
-     * @param end end point
-     */
-    public Vector(Point start, Point end) {
-    }
-
-    /**
-     * Construct Vector from a directed line segment.
-     *
-     * @param l directed line segment
-     */
-    public Vector(DirectedLineSegment l) {
-    }
-
-    /**
-     * Construct a Vector from another vector.
-     *
-     * @param v vector to copy
-     */
-    public Vector(Vector v) {
-    }
-
-    /**
      * Return the `x` coordinate of this vector.
      *
      * @return coordinate x

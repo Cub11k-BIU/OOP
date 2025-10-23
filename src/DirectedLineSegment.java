@@ -15,14 +15,6 @@ public class DirectedLineSegment {
     }
 
     /**
-     * Construct a DirectedLineSegment from another directed line segment.
-     *
-     * @param l directed line segment to copy
-     */
-    public DirectedLineSegment(DirectedLineSegment l) {
-    }
-
-    /**
      * Getter for start point.
      *
      * @return start point
@@ -87,5 +79,13 @@ public class DirectedLineSegment {
      * @return inverse
      */
     public DirectedLineSegment inverse() {
+    }
+
+    /**
+     * Return the line segment of `this`, direction does not matter.
+     *
+     * @return line segment
+     */
+    public LineSegment toLineSegment() {
     }
 }
