@@ -82,8 +82,6 @@ class LineSegmentTest {
         assertTrue(l.isEqual(l), "Self");
         assertTrue(l.isEqual(new LineSegment(l.getP1(), l.getP2())), "Default constructor");
         assertTrue(new LineSegment(l.getP1(), l.getP2()).isEqual(l), "Default constructor: symmetry");
-        assertTrue(l.isEqual(new LineSegment(l)), "Copy constructor");
-        assertTrue(new LineSegment(l).isEqual(l), "Copy constructor: symmetry");
         assertTrue(l.isEqual(l2), "Direction-agnostic");
         assertTrue(l2.isEqual(l), "Direction-agnostic: symmetry");
     }

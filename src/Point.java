@@ -20,16 +20,6 @@ public class Point {
     }
 
     /**
-     * Construct a Point from another Point.
-     *
-     * @param p point to copy
-     */
-    public Point(Point p) {
-        this.x = p.getX();
-        this.y = p.getY();
-    }
-
-    /**
      * Getter for coordinate x.
      *
      * @return coordinate x

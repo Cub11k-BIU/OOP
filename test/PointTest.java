@@ -68,8 +68,6 @@ class PointTest {
         assertTrue(p.isEqual(p), "Self");
         assertTrue(p.isEqual(new Point(x, y)), "Default constructor");
         assertTrue(new Point(x, y).isEqual(p), "Default constructor: symmetry");
-        assertTrue(p.isEqual(new Point(p)), "Copy constructor");
-        assertTrue(new Point(p).isEqual(p), "Copy constructor: symmetry");
     }
 
     @Test

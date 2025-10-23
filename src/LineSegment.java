@@ -15,18 +15,8 @@ public class LineSegment {
      * @param p2 second point
      */
     public LineSegment(Point p1, Point p2) {
-        this.p1 = new Point(p1);
-        this.p2 = new Point(p2);
-    }
-
-    /**
-     * Construct a LineSegment from another line segment.
-     *
-     * @param l line segment to copy
-     */
-    public LineSegment(LineSegment l) {
-        this.p1 = l.getP1();
-        this.p2 = l.getP2();
+        this.p1 = new Point(p1.getX(), p1.getY());
+        this.p2 = new Point(p2.getX(), p2.getY());
     }
 
     /**
@@ -35,7 +25,7 @@ public class LineSegment {
      * @return point p1
      */
     public Point getP1() {
-        return new Point(this.p1);
+        return new Point(this.p1.getX(), this.p1.getY());
     }
 
     /**
@@ -44,7 +34,7 @@ public class LineSegment {
      * @return point p2
      */
     public Point getP2() {
-        return new Point(this.p2);
+        return new Point(this.p2.getX(), this.p2.getY());
     }
 
     /**
@@ -53,7 +43,7 @@ public class LineSegment {
      * @param p1 first point
      */
     public void setP1(Point p1) {
-        this.p1 = new Point(p1);
+        this.p1 = new Point(p1.getX(), p1.getY());
     }
 
     /**
@@ -62,7 +52,7 @@ public class LineSegment {
      * @param p2 second point
      */
     public void setP2(Point p2) {
-        this.p2 = new Point(p2);
+        this.p2 = new Point(p2.getX(), p2.getY());
     }
 
     /**

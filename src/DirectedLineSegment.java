@@ -18,15 +18,6 @@ public class DirectedLineSegment {
     }
 
     /**
-     * Construct a DirectedLineSegment from another directed line segment.
-     *
-     * @param l directed line segment to copy
-     */
-    public DirectedLineSegment(DirectedLineSegment l) {
-        this.lineSegment = new LineSegment(l.lineSegment);
-    }
-
-    /**
      * Getter for start point.
      *
      * @return start point
@@ -105,6 +96,6 @@ public class DirectedLineSegment {
      * @return line segment
      */
     public LineSegment toLineSegment() {
-        return new LineSegment(this.lineSegment);
+        return new LineSegment(this.lineSegment.getP1(), this.lineSegment.getP2());
     }
 }
