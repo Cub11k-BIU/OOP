@@ -69,7 +69,11 @@ public class GeometryRenderer {
             this.drawLine(lineSegment, d, DEFAULT_LINE_SEGMENT_COLOR);
         }
         for (LineSegment segmentIntersection : geometryRecord.segmentIntersections()) {
-            this.drawLine(segmentIntersection, d, DEFAULT_SEGMENT_INTERSECTION_COLOR);
+            if (segmentIntersection.getP1().isEqual(segmentIntersection.getP2())) {
+                this.drawPoint(segmentIntersection.getP1(), d, DEFAULT_SEGMENT_INTERSECTION_COLOR);
+            } else {
+                this.drawLine(segmentIntersection, d, DEFAULT_SEGMENT_INTERSECTION_COLOR);
+            }
         }
         for (Point middle : geometryRecord.middles()) {
             this.drawPoint(middle, d, DEFAULT_MIDDLE_POINT_COLOR);
