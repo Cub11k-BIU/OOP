@@ -21,6 +21,7 @@ public class Point {
      * @return coordinate x
      */
     public double getX() {
+        return 0;
     }
 
     /**
@@ -29,6 +30,7 @@ public class Point {
      * @return coordinate y
      */
     public double getY() {
+        return 0;
     }
 
     /**
@@ -54,6 +56,7 @@ public class Point {
      * @return distance
      */
     public double distance(Point other) {
+        return 0;
     }
 
     /**
@@ -63,5 +66,16 @@ public class Point {
      * @return `true` if points have the same coordinates, `false` otherwise
      */
     public boolean isEqual(Point other) {
+        return false;
+    }
+
+    /**
+     * Determine whether `this` belongs to line segment `l`.
+     *
+     * @param l line segment to check
+     * @return `true` if `this` belongs to `l`, `false` otherwise
+     */
+    public boolean belongsTo(LineSegment l) {
+        return false;
     }
 }

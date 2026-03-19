@@ -21,6 +21,7 @@ public class LineSegment {
      * @return point p1
      */
     public Point getP1() {
+        return null;
     }
 
     /**
@@ -29,6 +30,7 @@ public class LineSegment {
      * @return point p2
      */
     public Point getP2() {
+        return null;
     }
 
     /**
@@ -53,6 +55,7 @@ public class LineSegment {
      * @return length
      */
     public double length() {
+        return 0;
     }
 
     /**
@@ -61,6 +64,7 @@ public class LineSegment {
      * @return middle
      */
     public Point middle() {
+        return null;
     }
 
     /**
@@ -70,5 +74,16 @@ public class LineSegment {
      * @return `true` if line segments have the same end-points, `false` otherwise
      */
     public boolean isEqual(LineSegment other) {
+        return false;
+    }
+
+    /**
+     * Determine whether point `p` belongs to `this` line segment.
+     *
+     * @param p point to check
+     * @return `true` if `p` belongs to `this`, `false` otherwise
+     */
+    public boolean contains(Point p) {
+        return false;
     }
 }
