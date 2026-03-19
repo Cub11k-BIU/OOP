@@ -8,6 +8,8 @@ import java.util.Collection;
  */
 public class ParkingLot {
 
+    public static final int HOURLY_RATE = 10;
+
     /**
      * Default constructor. Initializes an empty lot.
      */

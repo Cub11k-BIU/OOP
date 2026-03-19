@@ -1,11 +1,11 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * VehicleTest.
+ * TruckTest.
  *
  * @author [Author Name]
  * © [YYYY]
  */
-class VehicleTest {
+class TruckTest {
 
 }
