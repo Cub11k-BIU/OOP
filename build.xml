@@ -17,7 +17,7 @@
 
     <!-- Global build properties -->
     <property name="java.version" value="17" description="Java version for source and target compilation"/>
-    <property name="main.class" value="MainTemplate" description="The main class to run"/>
+    <property name="main.class" value="Main" description="The main class to run"/>
 
     <!-- Directory properties -->
     <property name="lib.dir" value="${basedir}/lib"/>

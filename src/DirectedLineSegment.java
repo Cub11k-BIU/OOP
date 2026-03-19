@@ -20,6 +20,7 @@ public class DirectedLineSegment {
      * @return start point
      */
     public Point getStart() {
+        return null;
     }
 
     /**
@@ -28,6 +29,7 @@ public class DirectedLineSegment {
      * @return end point
      */
     public Point getEnd() {
+        return null;
     }
 
     /**
@@ -44,7 +46,6 @@ public class DirectedLineSegment {
      * @param end end point
      */
     public void setEnd(Point end) {
-        // ...
     }
 
     /**
@@ -53,7 +54,7 @@ public class DirectedLineSegment {
      * @return length
      */
     public double length() {
-        // ...
+        return 0;
     }
 
     /**
@@ -62,6 +63,7 @@ public class DirectedLineSegment {
      * @return middle
      */
     public Point middle() {
+        return null;
     }
 
     /**
@@ -71,6 +73,7 @@ public class DirectedLineSegment {
      * @return `true` if line segments have the same start-end-points, `false` otherwise
      */
     public boolean isEqual(DirectedLineSegment other) {
+        return false;
     }
 
     /**
@@ -79,6 +82,7 @@ public class DirectedLineSegment {
      * @return inverse
      */
     public DirectedLineSegment inverse() {
+        return null;
     }
 
     /**
@@ -87,5 +91,6 @@ public class DirectedLineSegment {
      * @return line segment
      */
     public LineSegment toLineSegment() {
+        return null;
     }
 }

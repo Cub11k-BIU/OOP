@@ -19,7 +19,8 @@ public class Vector {
      *
      * @return coordinate x
      */
-    public Point getX() {
+    public double getX() {
+        return 0;
     }
 
     /**
@@ -27,7 +28,8 @@ public class Vector {
      *
      * @return coordinate y
      */
-    public Point getY() {
+    public double getY() {
+        return 0;
     }
 
     /**
@@ -36,14 +38,17 @@ public class Vector {
      * @return length
      */
     public double getLength() {
+        return 0;
     }
 
     /**
-     * Return the direction of this vector represented as a signed angle in radians(not degrees) between this vector and positive axis X.
+     * Return the direction of this vector represented as a signed angle
+     * in radians(not degrees) between this vector and positive axis X.
      *
      * @return direction
      */
     public double getDirection() {
+        return 0;
     }
 
     /**
@@ -84,6 +89,7 @@ public class Vector {
      * @return point
      */
     public Point coordinates() {
+        return null;
     }
 
     /**
@@ -93,6 +99,7 @@ public class Vector {
      * @return `true` if `this` and `other` are the same vector mathematically, `false` otherwise.
      */
     public boolean isEqual(Vector other) {
+        return false;
     }
 
     /**
@@ -102,6 +109,7 @@ public class Vector {
      * @return vector sum
      */
     public Vector add(Vector other) {
+        return null;
     }
 
     /**
@@ -112,6 +120,7 @@ public class Vector {
      * @return vector sum
      */
     public static Vector sum(Vector first, Vector second) {
+        return null;
     }
 
     /**
@@ -121,33 +130,27 @@ public class Vector {
      * @return scaled vector
      */
     public Vector scale(double scalar) {
+        return null;
     }
 
     /**
-     * Return the [cross product](https://www.mathsisfun.com/algebra/vectors-cross-product.html)
-     * between `this` and `other`. Note that order is important, `this` X `other` is not the same as `other` X `this`.
+     * Return the cross product between `this` and `other`.
+     * Note that order is important, `this` X `other` is not the same as `other` X `this`.
      *
      * @param other second vector
      * @return cross product `this` X `other`
      */
     public double crossProduct(Vector other) {
+        return 0;
     }
 
     /**
-     * Return the [dot product](https://www.mathsisfun.com/algebra/vectors-dot-product.html)
-     * between `this` and `other`.
+     * Return the dot product between `this` and `other`.
      *
      * @param other second vector
      * @return dot product `this` . `other`
      */
     public double dotProduct(Vector other) {
-    }
-
-    /**
-     * Return the line segment of `this`, direction does not matter.
-     *
-     * @return non-directed line segment
-     */
-    public LineSegment toLineSegment() {
+        return 0;
     }
 }

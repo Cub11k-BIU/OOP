@@ -1,12 +1,12 @@
 /**
- * MainTemplate.
+ * Main.
  *
  * @author [Author Name]
  * © [YYYY]
  */
-public class MainTemplate {
+public class Main {
     /**
-     * Main method template.
+     * Main method.
      *
      * @param args command line arguments
      */
