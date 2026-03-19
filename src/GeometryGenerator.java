@@ -35,9 +35,11 @@ public class GeometryGenerator {
         List<Point> points = this.generatePoints(min, max);
         List<LineSegment> lineSegments = this.generateLineSegments(min, max);
         List<Point> middles = this.calculateMiddles(lineSegments);
-        List<Point> intersections = this.calculateIntersections(points, lineSegments);
-        List<Point> singles = this.calculateSingles(points, intersections);
-        return this.composeGeometryRecord(middles, intersections, singles, lineSegments);
+        List<Point> pointIntersections = this.calculatePointIntersections(points, lineSegments);
+        List<Point> singles = this.calculateSingles(points, pointIntersections);
+        List<LineSegment> segmentIntersections = this.calculateSegmentIntersections(lineSegments);
+        return this.composeGeometryRecord(middles, pointIntersections, singles, lineSegments,
+                segmentIntersections);
     }
 
     private Point generateRandomPoint(Point min, Point max) {
@@ -77,13 +79,26 @@ public class GeometryGenerator {
         return middles;
     }
 
-    private List<Point> calculateIntersections(List<Point> points, List<LineSegment> lineSegments) {
+    private List<Point> calculatePointIntersections(List<Point> points, List<LineSegment> lineSegments) {
         List<Point> intersections = new ArrayList<>();
         for (Point point : points) {
             for (int i = 0; i < this.lineSegmentsNumber; i++) {
                 if (point.belongsTo(lineSegments.get(i))) {
                     intersections.add(point);
                     break;
+                }
+            }
+        }
+        return intersections;
+    }
+
+    private List<LineSegment> calculateSegmentIntersections(List<LineSegment> lineSegments) {
+        List<LineSegment> intersections = new ArrayList<>();
+        for (int i = 0; i < lineSegments.size(); i++) {
+            for (int j = i + 1; j < lineSegments.size(); j++) {
+                LineSegment intersection = lineSegments.get(i).intersectionSegment(lineSegments.get(j));
+                if (intersection != null) {
+                    intersections.add(intersection);
                 }
             }
         }
@@ -97,9 +112,10 @@ public class GeometryGenerator {
     }
 
     private GeometryRecord composeGeometryRecord(List<Point> middles,
-                                                 List<Point> intersections,
+                                                 List<Point> pointIntersections,
                                                  List<Point> singles,
-                                                 List<LineSegment> lineSegments) {
-        return new GeometryRecord(middles, intersections, singles, lineSegments);
+                                                 List<LineSegment> lineSegments,
+                                                 List<LineSegment> segmentIntersections) {
+        return new GeometryRecord(middles, pointIntersections, singles, lineSegments, segmentIntersections);
     }
 }

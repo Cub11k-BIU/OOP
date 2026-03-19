@@ -16,6 +16,7 @@ public class GeometryRenderer {
     private static final Color DEFAULT_SINGLE_POINT_COLOR = Color.BLACK;
     private static final Color DEFAULT_MIDDLE_POINT_COLOR = Color.BLUE;
     private static final Color DEFAULT_INTERSECTION_POINT_COLOR = Color.GREEN;
+    private static final Color DEFAULT_SEGMENT_INTERSECTION_COLOR = Color.GREEN;
 
     private final GUI gui;
 
@@ -67,10 +68,13 @@ public class GeometryRenderer {
         for (LineSegment lineSegment : geometryRecord.lineSegments()) {
             this.drawLine(lineSegment, d, DEFAULT_LINE_SEGMENT_COLOR);
         }
+        for (LineSegment segmentIntersection : geometryRecord.segmentIntersections()) {
+            this.drawLine(segmentIntersection, d, DEFAULT_SEGMENT_INTERSECTION_COLOR);
+        }
         for (Point middle : geometryRecord.middles()) {
             this.drawPoint(middle, d, DEFAULT_MIDDLE_POINT_COLOR);
         }
-        for (Point intersection : geometryRecord.intersections()) {
+        for (Point intersection : geometryRecord.pointIntersections()) {
             this.drawPoint(intersection, d, DEFAULT_INTERSECTION_POINT_COLOR);
         }
         for (Point single : geometryRecord.singles()) {
