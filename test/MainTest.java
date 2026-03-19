@@ -3,12 +3,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * MainTemplateTest.
+ * MainTest.
  *
  * @author Konstantin Ostashenko
  * © 2025
  */
-class MainTemplateTest {
+class MainTest {
 
     @Test
     void testMain() {

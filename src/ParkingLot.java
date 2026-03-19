@@ -1,0 +1,61 @@
+import java.util.Collection;
+
+/**
+ * ParkingLot.
+ *
+ * @author [Author Name]
+ * © [YYYY]
+ */
+public class ParkingLot {
+
+    /**
+     * Default constructor. Initializes an empty lot.
+     */
+    public ParkingLot() {
+    }
+
+    /**
+     * Return the collection of floors in the parking lot.
+     *
+     * @return collection of floors
+     */
+    public Collection<ParkingFloor> getFloors() {
+        return null;
+    }
+
+    /**
+     * Add a floor to the parking lot.
+     *
+     * @param floor floor to add
+     */
+    public void addFloor(ParkingFloor floor) {
+    }
+
+    /**
+     * Attempt to park the provided vehicle in the parking lot.
+     *
+     * @param v vehicle to park
+     * @return `true` if successful, `false` otherwise
+     */
+    public boolean parkVehicle(Vehicle v) {
+        return false;
+    }
+
+    /**
+     * Unpark the vehicle associated with the given license plate.
+     * Return the calculated parking fee, or `-1` if not found.
+     *
+     * @param licensePlate   license plate of the vehicle to unpark
+     * @param durationInMinutes duration the vehicle was parked
+     * @return parking fee, or `-1` if not found
+     */
+    public int unparkVehicle(String licensePlate, int durationInMinutes) {
+        return -1;
+    }
+
+    /**
+     * Print all currently active parking records.
+     */
+    public void displayParkingRecords() {
+    }
+}
