@@ -8,12 +8,23 @@ import java.util.Collection;
  */
 public class ParkingLot {
 
-    public static final int HOURLY_RATE = 10;
-
     /**
-     * Default constructor. Initializes an empty lot.
+     * Default constructor. Initializes an empty lot
+     * with the original Assignment 3 behaviors as default strategies.
      */
     public ParkingLot() {
+    }
+
+    /**
+     * Construct a ParkingLot with the given strategies.
+     *
+     * @param parkingStrategy strategy for finding parking spots
+     * @param timingStrategy  strategy for calculating billable time
+     * @param feeStrategy     strategy for calculating parking fees
+     */
+    public ParkingLot(ParkingStrategy parkingStrategy,
+                      TimingStrategy timingStrategy,
+                      FeeStrategy feeStrategy) {
     }
 
     /**
@@ -47,7 +58,7 @@ public class ParkingLot {
      * Unpark the vehicle associated with the given license plate.
      * Return the calculated parking fee, or `-1` if not found.
      *
-     * @param licensePlate   license plate of the vehicle to unpark
+     * @param licensePlate      license plate of the vehicle to unpark
      * @param durationInMinutes duration the vehicle was parked
      * @return parking fee, or `-1` if not found
      */
@@ -56,8 +67,11 @@ public class ParkingLot {
     }
 
     /**
-     * Print all currently active parking records.
+     * Return the current parking records.
+     *
+     * @return parking records
      */
-    public void displayParkingRecords() {
+    public Collection<?> getRecords() {
+        return null;
     }
 }
