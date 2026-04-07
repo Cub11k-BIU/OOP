@@ -67,11 +67,11 @@ public class ParkingLot {
     }
 
     /**
-     * Return the current parking records.
+     * Return the current parking records, in insertion order.
      *
      * @return parking records
      */
-    public Collection<?> getRecords() {
+    public Collection<ParkingRecord> getRecords() {
         return null;
     }
 }

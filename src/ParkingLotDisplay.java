@@ -13,6 +13,6 @@ public class ParkingLotDisplay {
      *
      * @param records the parking records to display
      */
-    public void displayParkingRecords(Collection<?> records) {
+    public void displayParkingRecords(Collection<ParkingRecord> records) {
     }
 }
