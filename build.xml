@@ -16,7 +16,7 @@
     </description>
 
     <!-- Global build properties -->
-    <property name="java.version" value="17" description="Java version for source and target compilation"/>
+    <property name="app.java.version" value="17" description="Java version for source and target compilation"/>
     <property name="main.class" value="Main" description="The main class to run"/>
 
     <!-- Directory properties -->
@@ -135,8 +135,7 @@
         <javac srcdir="${src.dir}"
                destdir="${output.production.dir}"
                includeAntRuntime="false"
-               source="${java.version}"
-               target="${java.version}"
+               release="${app.java.version}"
                debug="on"
                fork="true">
             <classpath>
@@ -150,8 +149,7 @@
         <javac srcdir="${test.dir}"
                destdir="${output.test.dir}"
                includeAntRuntime="false"
-               source="${java.version}"
-               target="${java.version}"
+               release="${app.java.version}"
                debug="on"
                fork="true">
             <classpath>
@@ -169,16 +167,32 @@
         <jar destfile="${dist.jar}" basedir="${output.production.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Created-By" value="Ant with Java ${app.java.version}"/>
+                <attribute name="X-Compile-Target-JDK" value="${app.java.version}"/>
             </manifest>
             <zipgroupfileset refid="lib.runtime.fileset"/>
         </jar>
     </target>
 
     <target name="run-jar" depends="dist" description="Run the application from the packaged JAR">
+        <condition property="version.mismatch">
+            <not>
+                <equals arg1="${ant.java.version}" arg2="${app.java.version}"/>
+            </not>
+        </condition>
+        <fail if="version.mismatch"
+              message="Error: Runtime Java version (${ant.java.version}) does not match required version (${app.java.version})"/>
         <java jar="${dist.jar}" fork="true"/>
     </target>
 
     <target name="run" depends="compile" description="Run the application from compiled classes">
+        <condition property="version.mismatch">
+            <not>
+                <equals arg1="${ant.java.version}" arg2="${app.java.version}"/>
+            </not>
+        </condition>
+        <fail if="version.mismatch"
+              message="Error: Runtime Java version (${ant.java.version}) does not match required version (${app.java.version})"/>
         <java classname="${main.class}" fork="true">
             <classpath>
                 <path refid="lib.runtime.classpath"/>
@@ -192,6 +206,13 @@
     <!-- ===================================================================== -->
 
     <target name="test" depends="compile-test" description="Execute all tests and generate reports">
+        <condition property="version.mismatch">
+            <not>
+                <equals arg1="${ant.java.version}" arg2="${app.java.version}"/>
+            </not>
+        </condition>
+        <fail if="version.mismatch"
+              message="Error: Runtime Java version (${ant.java.version}) does not match required version (${app.java.version})"/>
         <mkdir dir="${output.reports.dir}"/>
         <junitlauncher>
             <classpath>
