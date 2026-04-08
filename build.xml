@@ -223,6 +223,10 @@
                 <fileset dir="${output.test.dir}" includes="**/*.class"/>
                 <listener type="legacy-plain" sendsysout="true"/>
                 <listener type="legacy-xml" sendsysout="true" sendsyserr="true"/>
+                <fork>
+                    <sysproperty key="junit.jupiter.execution.timeout.default" value="10s"/>
+                    <sysproperty key="junit.jupiter.execution.timeout.thread.mode.default" value="SEPARATE_THREAD"/>
+                </fork>
             </testclasses>
         </junitlauncher>
         <junitreport todir="${output.reports.dir}">
