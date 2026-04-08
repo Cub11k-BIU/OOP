@@ -2,7 +2,7 @@
 
 ## [Assignment Wiki page](../../wiki/Assignment-7)
 
-A Least Recently Used (LRU) Cache in Python with O(1) `get` and `put`.
+Least Recently Used (LRU) Cache in Python with O(1) `get` and `put`.
 Combine a `dict` for O(1) key lookup with a custom doubly linked list
 for O(1) recency updates. See the wiki page above for the full spec.
 
@@ -22,8 +22,9 @@ ant test    # runs `python -m unittest discover` (picks up any test_*.py)
 ant clean   # removes Python bytecode caches
 ```
 
-The build defaults to `py` as the interpreter (Windows). On Linux/macOS:
+The build defaults to `py` as the interpreter (Windows). On Linux/macOS use:
 
 ```sh
 ant -Dapp.python.exec=python3 run
+ant -Dapp.python.exec=python3 test
 ```
