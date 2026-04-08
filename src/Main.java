@@ -1,15 +1,16 @@
 /**
- * MainTemplate.
+ * Main.
  *
  * @author [Author Name]
  * © [YYYY]
  */
-public class MainTemplate {
+public class Main {
     /**
-     * Main method template.
+     * Entry point — empty per Assignment 5 spec.
+     * Grading is performed by an automated JUnit test suite.
      *
      * @param args command line arguments
-     * */
+     */
     public static void main(String[] args) {
     }
 }
