@@ -25,6 +25,6 @@ ant clean   # removes Python bytecode caches
 The build defaults to `python3` as the interpreter (Linux/macOS). On Windows use:
 
 ```sh
-ant -Dapp.python.exec=py run
-ant -Dapp.python.exec=py test
+ant -D"app.python.exec=py" run
+ant -D"app.python.exec=py" test
 ```
