@@ -22,9 +22,9 @@ ant test    # runs `python -m unittest discover` (picks up any test_*.py)
 ant clean   # removes Python bytecode caches
 ```
 
-The build defaults to `py` as the interpreter (Windows). On Linux/macOS use:
+The build defaults to `python3` as the interpreter (Linux/macOS). On Windows use:
 
 ```sh
-ant -Dapp.python.exec=python3 run
-ant -Dapp.python.exec=python3 test
+ant -Dapp.python.exec=py run
+ant -Dapp.python.exec=py test
 ```

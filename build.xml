@@ -19,7 +19,7 @@
     <!-- The Python interpreter. On Windows the launcher is `py`; on
          Linux/macOS it is typically `python3`. Override on the command
          line with `-Dapp.python.exec=python3` if needed. -->
-    <property name="app.python.exec" value="py"/>
+    <property name="app.python.exec" value="python3"/>
 
     <!-- Source files (locked by Assignment-7.md) -->
     <property name="src.file" value="lru_cache.py"/>
@@ -61,7 +61,6 @@
 
     <target name="test" description="Run unittest discovery (picks up any test_*.py)">
         <exec executable="${app.python.exec}" failonerror="true">
-            <arg value="-3"/>
             <arg value="-m"/>
             <arg value="unittest"/>
             <arg value="discover"/>
