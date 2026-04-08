@@ -1,242 +1,72 @@
-<project name="[AssignmentName]" default="run" basedir=".">
+<project name="Assignment7" default="run" basedir=".">
 
     <!-- ===================================================================== -->
     <!-- Project properties                                                    -->
     <!-- ===================================================================== -->
     <description>
-        This build file compiles, tests, and packages the application.
+        This build file runs and tests the Assignment 7 LRU cache.
+        Unlike the Java assignments, A7 is a Python project — there is
+        no compile step, no JAR packaging, and no checkstyle. Each
+        target shells out to the Python interpreter via &lt;exec&gt;.
+
         Key targets:
-        - clean: Deletes all generated files.
-        - check-all: Runs checkstyle on all source code.
-        - compile: Compiles the main application source.
-        - test: Runs JUnit tests.
-        - dist: Creates a single, executable JAR file.
-        - run: Runs the application from the compiled classes.
-        - run-jar: Runs the application from the packaged JAR.
+        - clean: Deletes Python bytecode caches and build artifacts.
+        - compile: No-op (Python is interpreted; kept for convention).
+        - test: Runs unittest discovery (picks up any test_*.py files).
+        - run: Runs the main.py demonstration script.
     </description>
 
-    <!-- Global build properties -->
-    <property name="app.java.version" value="17" description="Java version for source and target compilation"/>
-    <property name="main.class" value="Main" description="The main class to run"/>
+    <!-- The Python interpreter. On Windows the launcher is `py`; on
+         Linux/macOS it is typically `python3`. Override on the command
+         line with `-Dapp.python.exec=python3` if needed. -->
+    <property name="app.python.exec" value="py"/>
 
-    <!-- Directory properties -->
-    <property name="lib.dir" value="${basedir}/lib"/>
-    <property name="lib.runtime.dir" value="${lib.dir}/runtime"/>
-    <property name="lib.test.dir" value="${lib.dir}/test"/>
-    <property name="lib.compile.dir" value="${lib.dir}/compile"/>
-    <property name="lib.checkstyle.dir" value="${lib.dir}/checkstyle"/>
-    <property name="src.dir" value="${basedir}/src"/>
-    <property name="test.dir" value="${basedir}/test"/>
+    <!-- Source files (locked by Assignment-7.md) -->
+    <property name="src.file" value="lru_cache.py"/>
+    <property name="main.file" value="main.py"/>
+
+    <!-- Output directories (only used by clean) -->
     <property name="output.dir" value="${basedir}/build"/>
-    <property name="output.test.dir" value="${output.dir}/test"/>
-    <property name="output.reports.dir" value="${output.dir}/test-reports"/>
-    <property name="output.production.dir" value="${output.dir}/production"/>
-    <property name="output.dist.dir" value="${output.dir}/dist"/>
-    <property name="checkstyle.config.dir" value="${basedir}/checkstyle"/>
-    <property name="checkstyle.config.biuoop" value="${checkstyle.config.dir}/biuoop.xml"/>
-    <property name="checkstyle.config.biuoop.test" value="${checkstyle.config.dir}/biuoop-test.xml"/>
-    <property name="junitreport.style.dir" value="${basedir}/ant"/>
-
-    <!-- JAR distribution properties -->
-    <property name="dist.jar" value="${output.dist.dir}/${ant.project.name}-all.jar"/>
-
-    <!-- ===================================================================== -->
-    <!-- Fileset definitions                                                   -->
-    <!-- ===================================================================== -->
-    <fileset id="lib.runtime.fileset" dir="${lib.runtime.dir}" includes="**/*.jar"/>
-    <fileset id="lib.test.fileset" dir="${lib.test.dir}" includes="**/*.jar"/>
-    <fileset id="lib.compile.fileset" dir="${lib.compile.dir}" includes="**/*.jar"/>
-    <fileset id="lib.checkstyle.fileset" dir="${lib.checkstyle.dir}" includes="**/*.jar"/>
-    <fileset id="src.fileset" dir="${src.dir}" includes="**/*.java"/>
-    <fileset id="test.fileset" dir="${test.dir}" includes="**/*.java"/>
-
-    <!-- ===================================================================== -->
-    <!-- Classpath definitions                                                 -->
-    <!-- ===================================================================== -->
-    <path id="lib.runtime.classpath">
-        <fileset refid="lib.runtime.fileset"/>
-    </path>
-
-    <path id="lib.test.classpath">
-        <path refid="lib.runtime.classpath"/>
-        <fileset refid="lib.test.fileset"/>
-    </path>
-
-    <path id="lib.compile.classpath">
-        <path refid="lib.test.classpath"/>
-        <fileset refid="lib.compile.fileset"/>
-    </path>
-
-    <path id="lib.checkstyle.classpath">
-        <fileset refid="lib.checkstyle.fileset"/>
-    </path>
-
-    <path id="output.production.classpath">
-        <pathelement location="${output.production.dir}"/>
-    </path>
-
-    <path id="output.test.classpath">
-        <path refid="output.production.classpath"/>
-        <pathelement location="${output.test.dir}"/>
-    </path>
-
-    <path id="checkstyle.src.path">
-        <fileset refid="src.fileset"/>
-    </path>
-
-    <path id="checkstyle.test.path">
-        <fileset refid="test.fileset"/>
-    </path>
 
     <!-- ===================================================================== -->
     <!-- Core Build Targets                                                    -->
     <!-- ===================================================================== -->
 
-    <target name="init" description="Initialize build directory">
-        <mkdir dir="${output.dir}"/>
-    </target>
-
-    <target name="clean" description="Delete all build artifacts">
+    <target name="clean" description="Delete Python bytecode caches and build artifacts">
         <delete dir="${output.dir}"/>
+        <delete dir="${basedir}/__pycache__"/>
+        <delete includeemptydirs="true">
+            <fileset dir="${basedir}" includes="**/__pycache__/**" defaultexcludes="no"/>
+            <fileset dir="${basedir}" includes="**/*.pyc" defaultexcludes="no"/>
+        </delete>
+    </target>
+
+    <target name="compile" description="No-op for Python — kept for ant target convention">
+        <echo message="Python is interpreted; nothing to compile."/>
     </target>
 
     <!-- ===================================================================== -->
-    <!-- Checkstyle Targets                                                    -->
+    <!-- Run target                                                            -->
     <!-- ===================================================================== -->
 
-    <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties">
-        <classpath>
-            <path refid="lib.checkstyle.classpath"/>
-        </classpath>
-    </taskdef>
-
-    <target name="check" description="Run checkstyle on source code">
-        <checkstyle config="${checkstyle.config.biuoop}" failureProperty="checkstyle.failure" failOnViolation="true">
-            <path refid="checkstyle.src.path"/>
-            <formatter type="plain" usefile="false"/>
-        </checkstyle>
-    </target>
-
-    <target name="check-test" description="Run checkstyle on test source code">
-        <checkstyle config="${checkstyle.config.biuoop.test}" failureProperty="checkstyle.failure" failOnViolation="true">
-            <path refid="checkstyle.test.path"/>
-            <formatter type="plain" usefile="false"/>
-        </checkstyle>
-    </target>
-
-    <target name="check-all" depends="check, check-test" description="Run all checkstyle checks"/>
-
-    <!-- ===================================================================== -->
-    <!-- Compilation Targets                                                   -->
-    <!-- ===================================================================== -->
-
-    <target name="compile" depends="check, init" description="Compile the application source code">
-        <mkdir dir="${output.production.dir}"/>
-        <javac srcdir="${src.dir}"
-               destdir="${output.production.dir}"
-               includeAntRuntime="false"
-               release="${app.java.version}"
-               debug="on"
-               fork="true">
-            <classpath>
-                <path refid="lib.compile.classpath"/>
-            </classpath>
-        </javac>
-    </target>
-
-    <target name="compile-test" depends="check-test, compile" description="Compile the test source code">
-        <mkdir dir="${output.test.dir}"/>
-        <javac srcdir="${test.dir}"
-               destdir="${output.test.dir}"
-               includeAntRuntime="false"
-               release="${app.java.version}"
-               debug="on"
-               fork="true">
-            <classpath>
-                <path refid="lib.test.classpath"/>
-                <path refid="output.production.classpath"/>
-            </classpath>
-        </javac>
+    <target name="run" description="Run the main.py demonstration script">
+        <exec executable="${app.python.exec}" failonerror="true">
+            <arg value="${main.file}"/>
+        </exec>
     </target>
 
     <!-- ===================================================================== -->
-    <!-- Packaging and Execution Targets                                       -->
+    <!-- Testing target                                                        -->
     <!-- ===================================================================== -->
 
-    <target name="dist" depends="compile" description="Create a distributable JAR file">
-        <jar destfile="${dist.jar}" basedir="${output.production.dir}">
-            <manifest>
-                <attribute name="Main-Class" value="${main.class}"/>
-                <attribute name="Created-By" value="Ant with Java ${app.java.version}"/>
-                <attribute name="X-Compile-Target-JDK" value="${app.java.version}"/>
-            </manifest>
-            <zipgroupfileset refid="lib.runtime.fileset"/>
-        </jar>
-    </target>
-
-    <target name="run-jar" depends="dist" description="Run the application from the packaged JAR">
-        <condition property="version.mismatch">
-            <not>
-                <equals arg1="${ant.java.version}" arg2="${app.java.version}"/>
-            </not>
-        </condition>
-        <fail if="version.mismatch"
-              message="Error: Runtime Java version (${ant.java.version}) does not match required version (${app.java.version})"/>
-        <java jar="${dist.jar}" fork="true"/>
-    </target>
-
-    <target name="run" depends="compile" description="Run the application from compiled classes">
-        <condition property="version.mismatch">
-            <not>
-                <equals arg1="${ant.java.version}" arg2="${app.java.version}"/>
-            </not>
-        </condition>
-        <fail if="version.mismatch"
-              message="Error: Runtime Java version (${ant.java.version}) does not match required version (${app.java.version})"/>
-        <java classname="${main.class}" fork="true">
-            <classpath>
-                <path refid="lib.runtime.classpath"/>
-                <path refid="output.production.classpath"/>
-            </classpath>
-        </java>
-    </target>
-
-    <!-- ===================================================================== -->
-    <!-- Testing Target                                                        -->
-    <!-- ===================================================================== -->
-
-    <target name="test" depends="compile-test" description="Execute all tests and generate reports">
-        <condition property="version.mismatch">
-            <not>
-                <equals arg1="${ant.java.version}" arg2="${app.java.version}"/>
-            </not>
-        </condition>
-        <fail if="version.mismatch"
-              message="Error: Runtime Java version (${ant.java.version}) does not match required version (${app.java.version})"/>
-        <mkdir dir="${output.reports.dir}"/>
-        <junitlauncher>
-            <classpath>
-                <path refid="lib.test.classpath"/>
-                <path refid="output.test.classpath"/>
-            </classpath>
-            <testclasses outputdir="${output.reports.dir}">
-                <fileset dir="${output.test.dir}" includes="**/*.class"/>
-                <listener type="legacy-plain" sendsysout="true"/>
-                <listener type="legacy-xml" sendsysout="true" sendsyserr="true"/>
-                <fork>
-                    <sysproperty key="junit.jupiter.execution.timeout.default" value="10s"/>
-                    <sysproperty key="junit.jupiter.execution.timeout.thread.mode.default" value="SEPARATE_THREAD"/>
-                </fork>
-            </testclasses>
-        </junitlauncher>
-        <junitreport todir="${output.reports.dir}">
-            <fileset dir="${output.reports.dir}">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="noframes" styledir="${junitreport.style.dir}" todir="${output.reports.dir}/html">
-                <param name="PROJECT_NAME" expression="${ant.project.name}"/>
-            </report>
-        </junitreport>
+    <target name="test" description="Run unittest discovery (picks up any test_*.py)">
+        <exec executable="${app.python.exec}" failonerror="true">
+            <arg value="-3"/>
+            <arg value="-m"/>
+            <arg value="unittest"/>
+            <arg value="discover"/>
+            <arg value="-v"/>
+        </exec>
     </target>
 
 </project>
