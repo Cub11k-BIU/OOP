@@ -44,8 +44,10 @@ public class Player {
     }
 
     /**
-     * Return a new {@code Player} instance with the updated position.
-     * The original instance must remain unchanged.
+     * <b>Stub:</b> implement this method.
+     *
+     * <p>Return a new {@code Player} instance with the updated position;
+     * the original instance must remain unchanged.
      *
      * @param newPosition the new position
      * @return a new Player at the given position

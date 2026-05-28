@@ -6,7 +6,10 @@
  */
 public class Snake extends BoardEntity {
     /**
-     * Construct a snake from start to end.
+     * <b>Stub:</b> construct a snake, validating that it slides down.
+     *
+     * <p>Throw {@link IllegalArgumentException} unless {@code start} is
+     * strictly greater than {@code end}.
      *
      * @param start the head cell
      * @param end   the tail cell (must be strictly less than start)

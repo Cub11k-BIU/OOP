@@ -22,8 +22,10 @@ public class GameEngine extends AbstractGameEngine {
     }
 
     /**
-     * Return true iff rolling {@code rollValue} from {@code currentPosition}
-     * would move past the final cell.
+     * <b>Stub:</b> implement this method.
+     *
+     * <p>Return {@code true} iff rolling {@code rollValue} from
+     * {@code currentPosition} would move past the final cell.
      *
      * @param currentPosition the player's current position
      * @param rollValue       the dice roll
@@ -35,7 +37,9 @@ public class GameEngine extends AbstractGameEngine {
     }
 
     /**
-     * Return the resulting position after rolling {@code rollValue} from
+     * <b>Stub:</b> implement this method.
+     *
+     * <p>Return the resulting position after rolling {@code rollValue} from
      * {@code currentPosition}: unchanged on an overshoot, otherwise the cell
      * reached after applying any snake or ladder transport.
      *
@@ -49,7 +53,10 @@ public class GameEngine extends AbstractGameEngine {
     }
 
     /**
-     * Return true iff {@code position} is the board's final (winning) cell.
+     * <b>Stub:</b> implement this method.
+     *
+     * <p>Return {@code true} iff {@code position} is the board's final
+     * (winning) cell.
      *
      * @param position the position to test
      * @return whether the position wins the game

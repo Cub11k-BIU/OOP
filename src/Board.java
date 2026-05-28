@@ -22,7 +22,9 @@ public class Board extends AbstractBoard {
     }
 
     /**
-     * Return the destination cell after applying any snake or ladder
+     * <b>Stub:</b> implement this method.
+     *
+     * <p>Return the destination cell after applying any snake or ladder
      * starting at {@code cell}, or {@code cell} itself if none.
      *
      * @param cell the cell to query

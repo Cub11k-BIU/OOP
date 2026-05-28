@@ -6,7 +6,10 @@
  */
 public class Ladder extends BoardEntity {
     /**
-     * Construct a ladder from start to end.
+     * <b>Stub:</b> construct a ladder, validating that it climbs up.
+     *
+     * <p>Throw {@link IllegalArgumentException} unless {@code start} is
+     * strictly less than {@code end}.
      *
      * @param start the bottom cell
      * @param end   the top cell (must be strictly greater than start)
