@@ -1,16 +1,13 @@
 /**
  * Player — strictly immutable player.
  *
- * <p>The name, position, their getters and the position-0 constructor are
- * provided; implement {@link #moveTo(int)} so it returns a new instance.
+ * <p>The name, position and their getters are provided by {@link AbstractPlayer};
+ * implement {@link #moveTo(int)} so it returns a new instance.
  *
  * @author [Author Name]
  * © [YYYY]
  */
 public class Player extends AbstractPlayer {
-    private final String name;
-    private final int position;
-
     /**
      * Construct a player at position 0.
      *
@@ -21,18 +18,7 @@ public class Player extends AbstractPlayer {
     }
 
     private Player(String name, int position) {
-        this.name = name;
-        this.position = position;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getPosition() {
-        return position;
+        super(name, position);
     }
 
     /**
