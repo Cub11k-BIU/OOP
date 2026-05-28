@@ -6,8 +6,7 @@
  */
 public class Main {
     /**
-     * Entry point — empty per Assignment 5 spec.
-     * Grading is performed by an automated JUnit test suite.
+     * Main method.
      *
      * @param args command line arguments
      */
