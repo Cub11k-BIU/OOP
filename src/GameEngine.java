@@ -1,12 +1,15 @@
 import java.util.List;
 
 /**
- * GameEngine — turn-by-turn engine for a Snakes and Ladders game.
+ * GameEngine — concrete engine. Complete the three per-roll decisions below.
+ *
+ * <p>The turn loop, history and file I/O are provided by
+ * {@link AbstractGameEngine}; the board is available via {@code getBoard()}.
  *
  * @author [Author Name]
  * © [YYYY]
  */
-public class GameEngine {
+public class GameEngine extends AbstractGameEngine {
     /**
      * Construct an engine.
      *
@@ -15,55 +18,44 @@ public class GameEngine {
      * @param dice    the dice
      */
     public GameEngine(Board board, List<Player> players, Dice dice) {
+        super(board, players, dice);
     }
 
     /**
-     * Advance the game by one turn (no-op if game over).
-     */
-    public void playTurn() {
-    }
-
-    /**
-     * Return whether the game is over.
+     * Return true iff rolling {@code rollValue} from {@code currentPosition}
+     * would move past the final cell.
      *
-     * @return true if game over
+     * @param currentPosition the player's current position
+     * @param rollValue       the dice roll
+     * @return whether the move overshoots the final cell
      */
-    public boolean isGameOver() {
+    @Override
+    public boolean isOvershoot(int currentPosition, int rollValue) {
         return false;
     }
 
     /**
-     * Return the winning player, or null if no winner yet.
+     * Return the resulting position after rolling {@code rollValue} from
+     * {@code currentPosition}: unchanged on an overshoot, otherwise the cell
+     * reached after applying any snake or ladder transport.
      *
-     * @return the winner
+     * @param currentPosition the player's current position
+     * @param rollValue       the dice roll
+     * @return the resulting board position
      */
-    public Player getWinner() {
-        return null;
+    @Override
+    public int applyRoll(int currentPosition, int rollValue) {
+        return 0;
     }
 
     /**
-     * Return the player whose turn is next.
+     * Return true iff {@code position} is the board's final (winning) cell.
      *
-     * @return the current player
+     * @param position the position to test
+     * @return whether the position wins the game
      */
-    public Player getCurrentPlayer() {
-        return null;
-    }
-
-    /**
-     * Return the full game history.
-     *
-     * @return the history
-     */
-    public List<TurnSnapshot> getHistory() {
-        return null;
-    }
-
-    /**
-     * Save the game history to a file.
-     *
-     * @param filename the file name
-     */
-    public void saveHistory(String filename) {
+    @Override
+    public boolean isWinningPosition(int position) {
+        return false;
     }
 }

@@ -3,10 +3,14 @@ import java.util.List;
 /**
  * TurnSnapshot — immutable record of the state at the end of a turn.
  *
- * @author [Author Name]
- * © [YYYY]
+ * @author Konstantin Ostashenko
+ * © 2025
  */
 public class TurnSnapshot {
+    private final String name;
+    private final int rolled;
+    private final List<Player> players;
+
     /**
      * Construct a snapshot.
      *
@@ -15,6 +19,9 @@ public class TurnSnapshot {
      * @param players list of all players (in player-list order) at end of turn
      */
     public TurnSnapshot(String name, int rolled, List<Player> players) {
+        this.name = name;
+        this.rolled = rolled;
+        this.players = List.copyOf(players);
     }
 
     /**
@@ -23,7 +30,7 @@ public class TurnSnapshot {
      * @return the name
      */
     public String getName() {
-        return null;
+        return name;
     }
 
     /**
@@ -32,7 +39,7 @@ public class TurnSnapshot {
      * @return the dice value
      */
     public int getRolled() {
-        return 0;
+        return rolled;
     }
 
     /**
@@ -41,6 +48,6 @@ public class TurnSnapshot {
      * @return the players
      */
     public List<Player> getPlayers() {
-        return null;
+        return players;
     }
 }

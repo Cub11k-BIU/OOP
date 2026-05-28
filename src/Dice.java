@@ -1,8 +1,8 @@
 /**
  * Dice — interface for any dice that can roll a value.
  *
- * @author [Author Name]
- * © [YYYY]
+ * @author Konstantin Ostashenko
+ * © 2025
  */
 public interface Dice {
     /**

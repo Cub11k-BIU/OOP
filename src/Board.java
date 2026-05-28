@@ -1,12 +1,16 @@
 import java.util.List;
 
 /**
- * Board — immutable board configuration.
+ * Board — concrete board. Complete the transport lookup below.
+ *
+ * <p>The size and the immutable entity list are held by
+ * {@link AbstractBoard} ({@code getSize()} and {@code entities()} are
+ * provided); implement {@link #getDestination(int)}.
  *
  * @author [Author Name]
  * © [YYYY]
  */
-public class Board {
+public class Board extends AbstractBoard {
     /**
      * Construct an immutable board.
      *
@@ -14,15 +18,7 @@ public class Board {
      * @param entities the snakes and ladders on this board
      */
     public Board(int size, List<BoardEntity> entities) {
-    }
-
-    /**
-     * Return the board size.
-     *
-     * @return the number of cells
-     */
-    public int getSize() {
-        return 0;
+        super(size, entities);
     }
 
     /**
@@ -32,6 +28,7 @@ public class Board {
      * @param cell the cell to query
      * @return the cell to move to
      */
+    @Override
     public int getDestination(int cell) {
         return 0;
     }
