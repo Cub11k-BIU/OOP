@@ -28,17 +28,17 @@ public final class Main {
             System.out.println("Usage: java Main <board.txt>");
             return;
         }
-        Board board;
+        AbstractBoard board;
         try {
             board = loadBoard(args[0]);
         } catch (IOException e) {
             System.err.println("Failed to read board file: " + e.getMessage());
             return;
         }
-        List<Player> players = new ArrayList<>();
+        List<AbstractPlayer> players = new ArrayList<>();
         players.add(GameFactory.player("Alice"));
         players.add(GameFactory.player("Bob"));
-        GameEngine engine = GameFactory.engine(board, players, RandomDice.getInstance());
+        AbstractGameEngine engine = GameFactory.engine(board, players, RandomDice.getInstance());
         while (!engine.isGameOver()) {
             engine.playTurn();
         }
@@ -51,10 +51,10 @@ public final class Main {
      * {@code <size>\n[<S|L> <start> <end>\n]...}.
      *
      * @param path path to the configuration file
-     * @return a {@link Board} described by the file
+     * @return an {@link AbstractBoard} described by the file
      * @throws IOException if the file cannot be read
      */
-    private static Board loadBoard(String path) throws IOException {
+    private static AbstractBoard loadBoard(String path) throws IOException {
         List<BoardEntity> entities = new ArrayList<>();
         int size;
         try (BufferedReader reader = Files.newBufferedReader(Path.of(path))) {

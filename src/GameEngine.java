@@ -17,7 +17,7 @@ public class GameEngine extends AbstractGameEngine {
      * @param players the players (must contain at least 2)
      * @param dice    the dice
      */
-    public GameEngine(Board board, List<Player> players, Dice dice) {
+    public GameEngine(Board board, List<AbstractPlayer> players, Dice dice) {
         super(board, players, dice);
     }
 

@@ -23,10 +23,10 @@ public abstract class AbstractGameEngine {
     private final AbstractBoard board;
     private final Dice dice;
     private final List<TurnSnapshot> history;
-    private List<Player> currentPlayers;
+    private List<AbstractPlayer> currentPlayers;
     private int currentIndex;
     private boolean gameOver;
-    private Player winner;
+    private AbstractPlayer winner;
 
     /**
      * Construct an engine.
@@ -36,7 +36,7 @@ public abstract class AbstractGameEngine {
      * @param dice    the dice
      * @throws IllegalArgumentException if fewer than 2 players are provided
      */
-    protected AbstractGameEngine(AbstractBoard board, List<Player> players, Dice dice) {
+    protected AbstractGameEngine(AbstractBoard board, List<AbstractPlayer> players, Dice dice) {
         if (players == null || players.size() < 2) {
             throw new IllegalArgumentException("GameEngine requires at least 2 players");
         }
@@ -94,16 +94,16 @@ public abstract class AbstractGameEngine {
         if (gameOver) {
             return;
         }
-        Player mover = currentPlayers.get(currentIndex);
+        AbstractPlayer mover = currentPlayers.get(currentIndex);
         int rolled = dice.roll();
         boolean overshoot = isOvershoot(mover.getPosition(), rolled);
 
-        List<Player> nextPlayers;
+        List<AbstractPlayer> nextPlayers;
         if (overshoot) {
             nextPlayers = currentPlayers;
         } else {
             int destination = applyRoll(mover.getPosition(), rolled);
-            Player moved = mover.moveTo(destination);
+            AbstractPlayer moved = mover.moveTo(destination);
             nextPlayers = new ArrayList<>(currentPlayers);
             nextPlayers.set(currentIndex, moved);
             if (isWinningPosition(destination)) {
@@ -138,7 +138,7 @@ public abstract class AbstractGameEngine {
      *
      * @return the winner
      */
-    public final Player getWinner() {
+    public final AbstractPlayer getWinner() {
         return winner;
     }
 
@@ -147,7 +147,7 @@ public abstract class AbstractGameEngine {
      *
      * @return the current player
      */
-    public final Player getCurrentPlayer() {
+    public final AbstractPlayer getCurrentPlayer() {
         return currentPlayers.get(currentIndex);
     }
 
@@ -174,7 +174,7 @@ public abstract class AbstractGameEngine {
                         .append(" rolled ")
                         .append(snap.getRolled())
                         .append(" :");
-                for (Player p : snap.getPlayers()) {
+                for (AbstractPlayer p : snap.getPlayers()) {
                     sb.append(' ').append(p.getPosition());
                 }
                 writer.write(sb.toString());

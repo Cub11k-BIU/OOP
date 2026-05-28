@@ -7,7 +7,7 @@
  * @author [Author Name]
  * © [YYYY]
  */
-public class Player {
+public class Player extends AbstractPlayer {
     private final String name;
     private final int position;
 
@@ -25,20 +25,12 @@ public class Player {
         this.position = position;
     }
 
-    /**
-     * Return the player's name.
-     *
-     * @return the name
-     */
+    @Override
     public String getName() {
         return name;
     }
 
-    /**
-     * Return the player's current position.
-     *
-     * @return the position
-     */
+    @Override
     public int getPosition() {
         return position;
     }
@@ -52,6 +44,7 @@ public class Player {
      * @param newPosition the new position
      * @return a new Player at the given position
      */
+    @Override
     public Player moveTo(int newPosition) {
         return null;
     }

@@ -3,8 +3,8 @@ import java.util.List;
 /**
  * GameFactory — central construction point for the game's stub-backed types.
  *
- * <p>Tests obtain boards, entities, players and engines through this factory so
- * the grader can run a suite against a reference implementation.
+ * <p>Build boards, entities, players and engines through this factory in your
+ * tests (see Part 3). Every method returns a shared supertype.
  *
  * @author Konstantin Ostashenko
  * © 2025
@@ -20,7 +20,7 @@ public final class GameFactory {
      * @param entities the snakes and ladders
      * @return a new board
      */
-    public static Board board(int size, List<BoardEntity> entities) {
+    public static AbstractBoard board(int size, List<BoardEntity> entities) {
         return new Board(size, entities);
     }
 
@@ -31,7 +31,7 @@ public final class GameFactory {
      * @param end   the tail cell
      * @return a new snake
      */
-    public static Snake snake(int start, int end) {
+    public static BoardEntity snake(int start, int end) {
         return new Snake(start, end);
     }
 
@@ -42,7 +42,7 @@ public final class GameFactory {
      * @param end   the top cell
      * @return a new ladder
      */
-    public static Ladder ladder(int start, int end) {
+    public static BoardEntity ladder(int start, int end) {
         return new Ladder(start, end);
     }
 
@@ -52,7 +52,7 @@ public final class GameFactory {
      * @param name the player name
      * @return a new player
      */
-    public static Player player(String name) {
+    public static AbstractPlayer player(String name) {
         return new Player(name);
     }
 
@@ -64,7 +64,7 @@ public final class GameFactory {
      * @param dice    the dice
      * @return a new engine
      */
-    public static GameEngine engine(Board board, List<Player> players, Dice dice) {
-        return new GameEngine(board, players, dice);
+    public static AbstractGameEngine engine(AbstractBoard board, List<AbstractPlayer> players, Dice dice) {
+        return new GameEngine((Board) board, players, dice);
     }
 }
