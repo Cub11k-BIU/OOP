@@ -8,23 +8,22 @@ import java.util.Collection;
  */
 public class ParkingLot {
 
+    /** Hourly rate, in currency units per billable hour. */
+    public static final int HOURLY_RATE = 10;
+
     /**
-     * Default constructor. Initializes an empty lot
-     * with the original Assignment 3 behaviors as default strategies.
+     * Default constructor. Initializes an empty lot using the smallest-fit
+     * allocation strategy.
      */
     public ParkingLot() {
     }
 
     /**
-     * Construct a ParkingLot with the given strategies.
+     * Construct a ParkingLot with the given spot-allocation strategy.
      *
      * @param parkingStrategy strategy for finding parking spots
-     * @param timingStrategy  strategy for calculating billable time
-     * @param feeStrategy     strategy for calculating parking fees
      */
-    public ParkingLot(ParkingStrategy parkingStrategy,
-                      TimingStrategy timingStrategy,
-                      FeeStrategy feeStrategy) {
+    public ParkingLot(ParkingStrategy parkingStrategy) {
     }
 
     /**
