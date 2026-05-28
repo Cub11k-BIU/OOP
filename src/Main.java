@@ -6,13 +6,14 @@
  */
 public class Main {
     /**
-     * Main method.
+     * Demonstrate vector addition visually.
      *
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        GeometryGenerator generator = new GeometryGenerator(50, 20);
-        GeometryRenderer renderer = new GeometryRenderer(800, 600);
-        renderer.render(generator.generate(new Point(50, 50), new Point(750, 550)));
+        Vector a = new Vector(3, 2);
+        Vector b = new Vector(1, 3);
+        VectorRenderer renderer = new VectorRenderer(800, 600);
+        renderer.render(a, b);
     }
 }

@@ -3,4 +3,4 @@
 ## [Assignment Wiki page](../../wiki/Assignment-2)
 
 In this assignment you will implement DirectedLineSegment and Vector classes 
-and learn about a practical application of vector calculus.
+and learn about vector calculus.

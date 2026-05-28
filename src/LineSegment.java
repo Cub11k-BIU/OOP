@@ -86,25 +86,4 @@ public class LineSegment {
     public boolean contains(Point p) {
         return false;
     }
-
-    /**
-     * Determine whether `this` intersects with `other`.
-     *
-     * @param other line segment to check intersection with
-     * @return `true` if `this` intersects with `other`, `false` otherwise
-     */
-    public boolean intersectsWith(LineSegment other) {
-        return false;
-    }
-
-    /**
-     * Return the intersection segment between `this` and `other`,
-     * or `null` if they do not intersect.
-     *
-     * @param other line segment to intersect with
-     * @return intersection segment, or `null` if no intersection
-     */
-    public LineSegment intersectionSegment(LineSegment other) {
-        return null;
-    }
 }
