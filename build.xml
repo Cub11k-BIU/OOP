@@ -177,7 +177,7 @@
     <target name="run-jar" depends="dist" description="Run the application from the packaged JAR">
         <condition property="version.mismatch">
             <not>
-                <equals arg1="${ant.java.version}" arg2="${app.java.version}"/>
+                <javaversion atleast="${app.java.version}"/>
             </not>
         </condition>
         <fail if="version.mismatch"
@@ -188,7 +188,7 @@
     <target name="run" depends="compile" description="Run the application from compiled classes">
         <condition property="version.mismatch">
             <not>
-                <equals arg1="${ant.java.version}" arg2="${app.java.version}"/>
+                <javaversion atleast="${app.java.version}"/>
             </not>
         </condition>
         <fail if="version.mismatch"
@@ -208,7 +208,7 @@
     <target name="test" depends="compile-test" description="Execute all tests and generate reports">
         <condition property="version.mismatch">
             <not>
-                <equals arg1="${ant.java.version}" arg2="${app.java.version}"/>
+                <javaversion atleast="${app.java.version}"/>
             </not>
         </condition>
         <fail if="version.mismatch"
